@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Todo({ todos }) {
+export default function Todo({ todos, handleTaskMove }) {
   const [dropDownSelectedFor, setDropDownSelectedFor] = useState("");
   const [showStateDropDown, setShowStateDropDown] = useState(false);
 
@@ -69,15 +69,21 @@ export default function Todo({ todos }) {
                           <div className="-my-2 divide-y divide-gray-100 dark:divide-gray-800">
                             <div className="p-2">
                               <div
-                                className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                                className="block cursor-pointer rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                                 role="menuitem"
+                                onClick={() =>
+                                  handleTaskMove("todo", "inProgress", todo.id)
+                                }
                               >
                                 In Progress
                               </div>
 
                               <div
-                                className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                                className="block cursor-pointer rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                                 role="menuitem"
+                                onClick={() =>
+                                  handleTaskMove("todo", "done", todo.id)
+                                }
                               >
                                 Done
                               </div>

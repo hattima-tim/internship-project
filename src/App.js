@@ -99,7 +99,9 @@ function App() {
         </li>
       </ul>
 
-      {userSelectedTab === "todo" && <Todo todos={todos} />}
+      {userSelectedTab === "todo" && (
+        <Todo todos={todos} handleTaskMove={handleTaskMove} />
+      )}
 
       {userSelectedTab === "inProgress" && (
         <InProgressTasks inProgressTasks={inProgressTasks} />

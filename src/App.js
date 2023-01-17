@@ -1,24 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { initializeApp } from "firebase/app";
 import Todo from "./features/todoList/todos";
 import InProgressTasks from "./features/inProgressList/inProgressTasks";
 import FinishedTasks from "./features/finishedTaskList/finishedTasks";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCMK3rO2M-PTgnBif0jqND1KXxp9dGKgFo",
+  authDomain: "internship-project-a4949.firebaseapp.com",
+  projectId: "internship-project-a4949",
+  storageBucket: "internship-project-a4949.appspot.com",
+  messagingSenderId: "938198674073",
+  appId: "1:938198674073:web:ba79d3f2ede2b8c5602608",
+};
+
+initializeApp(firebaseConfig);
 
 function App() {
   const [userSelectedTab, setUserSelectedTab] = useState("todo");
-  const [todos, setTodos] = useState([
-    {
-      id: crypto.randomUUID(),
-      title: "firstTask",
-      description: "work",
-      state: "todo",
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "secondTask",
-      description: "study",
-      state: "todo",
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([
     {
       id: crypto.randomUUID(),
@@ -60,7 +60,9 @@ function App() {
   const updateTaskList = (from, id) => {
     if (from === "todo") setTodos(todos.filter((todo) => todo.id !== id));
     if (from === "inProgress")
-      setInProgressTasks(inProgressTasks.filter((inProgress) => inProgress.id !== id));
+      setInProgressTasks(
+        inProgressTasks.filter((inProgress) => inProgress.id !== id)
+      );
   };
 
   const handleTaskMove = (from, to, id) => {

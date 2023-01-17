@@ -48,6 +48,28 @@ function App() {
     },
   ]);
 
+  useEffect(() => {
+    let ignore = false;
+
+    async function fetchData() {
+      const db = getFirestore();
+      const todoRef = doc(db, `tasks/todo`);
+
+      try {
+        const userSnap = await getDoc(todoRef);
+
+        if (!ignore && userSnap.exists()) setTodos(userSnap.data().todo);
+      } catch (error) {
+        alert("Something went wrong while getting todo list");
+      }
+    }
+    fetchData();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   const getTheTask = (from, id) => {
     let taskList;
     if (from === "todo") taskList = todos;

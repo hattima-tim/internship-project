@@ -7,11 +7,13 @@ function App() {
   const [userSelectedTab, setUserSelectedTab] = useState("todo");
   const [todos, setTodos] = useState([
     {
+      id:crypto.randomUUID(),
       title: "firstTask",
       description: "work",
       state: "todo",
     },
     {
+      id:crypto.randomUUID(),
       title: "secondTask",
       description: "study",
       state: "todo",
@@ -19,11 +21,13 @@ function App() {
   ]);
   const [inProgressTasks, setInProgressTasks] = useState([
     {
+      id:crypto.randomUUID(),
       title: "firstTask",
       description: "inProgressFirstTask",
       state: "inProgress",
     },
     {
+      id:crypto.randomUUID(),
       title: "secondTask",
       description: "inProgressSecondTask",
       state: "inProgress",
@@ -31,11 +35,13 @@ function App() {
   ]);
   const [finishedTasks, setFinishedTasks] = useState([
     {
+      id:crypto.randomUUID(),
       title: "firstTask",
       description: "finishedFirstTask",
       state: "done",
     },
     {
+      id:crypto.randomUUID(),
       title: "secondTask",
       description: "finishedSecondTask",
       state: "done",

@@ -3,7 +3,14 @@ import { initializeApp } from "firebase/app";
 import Todo from "./features/todoList/todos";
 import InProgressTasks from "./features/inProgressList/inProgressTasks";
 import FinishedTasks from "./features/finishedTaskList/finishedTasks";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCMK3rO2M-PTgnBif0jqND1KXxp9dGKgFo",
@@ -87,8 +94,32 @@ function App() {
       );
   };
 
-  const handleTaskMove = (from, to, id) => {
+  const updateDataInFirestore = async (from, to, task) => {
+    const db = getFirestore();
+    const refForAddingData = doc(db, `tasks/${to}`);
+    const refForRemovingData = doc(db, `tasks/${from}`);
+
+    try {
+      await updateDoc(refForAddingData, {
+        [to]: arrayUnion(task),
+      });
+
+      await updateDoc(refForRemovingData, {
+        [from]: arrayRemove(task),
+      });
+
+      return "success";
+    } catch (error) {
+      alert("Something went wrong while moving the task");
+      return "failure";
+    }
+  };
+
+  const handleTaskMove = async (from, to, id) => {
     let task = getTheTask(from, id);
+
+    const updateStatus = await updateDataInFirestore(from, to, task);
+    if (updateStatus === "failure") return;
 
     updateTaskList(from, id);
 

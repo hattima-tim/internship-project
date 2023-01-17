@@ -60,7 +60,9 @@ function App() {
   const updateTaskList = (from, id) => {
     if (from === "todo") setTodos(todos.filter((todo) => todo.id !== id));
     if (from === "inProgress")
-      setTodos(inProgressTasks.filter((inProgress) => inProgress.id !== id));
+      setInProgressTasks(
+        inProgressTasks.filter((inProgress) => inProgress.id !== id)
+      );
   };
 
   const handleTaskMove = (from, to, id) => {

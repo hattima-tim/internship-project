@@ -7,13 +7,13 @@ function App() {
   const [userSelectedTab, setUserSelectedTab] = useState("todo");
   const [todos, setTodos] = useState([
     {
-      id:crypto.randomUUID(),
+      id: crypto.randomUUID(),
       title: "firstTask",
       description: "work",
       state: "todo",
     },
     {
-      id:crypto.randomUUID(),
+      id: crypto.randomUUID(),
       title: "secondTask",
       description: "study",
       state: "todo",
@@ -21,13 +21,13 @@ function App() {
   ]);
   const [inProgressTasks, setInProgressTasks] = useState([
     {
-      id:crypto.randomUUID(),
+      id: crypto.randomUUID(),
       title: "firstTask",
       description: "inProgressFirstTask",
       state: "inProgress",
     },
     {
-      id:crypto.randomUUID(),
+      id: crypto.randomUUID(),
       title: "secondTask",
       description: "inProgressSecondTask",
       state: "inProgress",
@@ -35,18 +35,43 @@ function App() {
   ]);
   const [finishedTasks, setFinishedTasks] = useState([
     {
-      id:crypto.randomUUID(),
+      id: crypto.randomUUID(),
       title: "firstTask",
       description: "finishedFirstTask",
       state: "done",
     },
     {
-      id:crypto.randomUUID(),
+      id: crypto.randomUUID(),
       title: "secondTask",
       description: "finishedSecondTask",
       state: "done",
     },
   ]);
+
+  const getTheTask = (from, id) => {
+    let taskList;
+    if (from === "todo") taskList = todos;
+    if (from === "inProgress") taskList = inProgressTasks;
+
+    let task = taskList.find((task) => task.id === id);
+    return task;
+  };
+
+  const updateTaskList = (from, id) => {
+    if (from === "todo") setTodos(todos.filter((todo) => todo.id !== id));
+    if (from === "inProgress")
+      setTodos(inProgressTasks.filter((inProgress) => inProgress.id !== id));
+  };
+
+  const handleTaskMove = (from, to, id) => {
+    let task = getTheTask(from, id);
+
+    updateTaskList(from, id);
+
+    if (to === "todo") setTodos([...todos, task]);
+    if (to === "inProgress") setInProgressTasks([...inProgressTasks, task]);
+    if (to === "done") setFinishedTasks([...finishedTasks, task]);
+  };
 
   return (
     <div>
@@ -75,9 +100,11 @@ function App() {
       </ul>
 
       {userSelectedTab === "todo" && <Todo todos={todos} />}
+
       {userSelectedTab === "inProgress" && (
         <InProgressTasks inProgressTasks={inProgressTasks} />
       )}
+
       {userSelectedTab === "done" && (
         <FinishedTasks finishedTasks={finishedTasks} />
       )}

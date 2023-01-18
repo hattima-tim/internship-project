@@ -61,13 +61,21 @@ function App() {
     async function fetchData() {
       const db = getFirestore();
       const todoRef = doc(db, `tasks/todo`);
+      const inProgressTasksRef = doc(db, "tasks/inProgress");
+      const finishedTasksRef = doc(db, "tasks/done");
 
       try {
-        const userSnap = await getDoc(todoRef);
+        const todosSnap = await getDoc(todoRef);
+        const inProgressTasksSnap = await getDoc(inProgressTasksRef);
+        const finishedTasksSnap = await getDoc(finishedTasksRef);
 
-        if (!ignore && userSnap.exists()) setTodos(userSnap.data().todo);
+        if (!ignore) {
+          setTodos(todosSnap.data().todo);
+          setInProgressTasks(inProgressTasksSnap.data().inProgress);
+          setFinishedTasks(finishedTasksSnap.data().done);
+        }
       } catch (error) {
-        alert("Something went wrong while getting todo list");
+        alert("Something went wrong while fetching data");
       }
     }
     fetchData();

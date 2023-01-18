@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TodosContext } from "../../taskContexts";
 
-export default function Todo({ todos, handleTaskMove }) {
+export default function Todo() {
+  const [todos,handleTaskMove] = useContext(TodosContext);
   const [dropDownSelectedFor, setDropDownSelectedFor] = useState("");
   const [showStateDropDown, setShowStateDropDown] = useState(false);
 

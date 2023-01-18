@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { DoneContext } from "../../taskContexts";
 
-export default function FinishedTasks({ finishedTasks }) {
+export default function FinishedTasks() {
+  const [finishedTasks] = useContext(DoneContext);
   const [dropDownSelectedFor, setDropDownSelectedFor] = useState("");
   const [showStateDropDown, setShowStateDropDown] = useState(false);
 

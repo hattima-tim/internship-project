@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { InProgressContext } from "../../taskContexts";
 
-export default function InProgressTasks({ inProgressTasks, handleTaskMove }) {
+export default function InProgressTasks() {
+  const [inProgressTasks,handleTaskMove] = useContext(InProgressContext);
   const [dropDownSelectedFor, setDropDownSelectedFor] = useState("");
   const [showStateDropDown, setShowStateDropDown] = useState(false);
 

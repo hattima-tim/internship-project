@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
+import { TodosContext, InProgressContext, DoneContext } from "./taskContexts";
 import Todo from "./features/todoList/todos";
 import InProgressTasks from "./features/inProgressList/inProgressTasks";
 import FinishedTasks from "./features/finishedTaskList/finishedTasks";
@@ -162,20 +163,17 @@ function App() {
         </li>
       </ul>
 
-      {userSelectedTab === "todo" && (
-        <Todo todos={todos} handleTaskMove={handleTaskMove} />
-      )}
+      <TodosContext.Provider value={[todos, handleTaskMove]}>
+        {userSelectedTab === "todo" && <Todo />}
+      </TodosContext.Provider>
 
-      {userSelectedTab === "inProgress" && (
-        <InProgressTasks
-          inProgressTasks={inProgressTasks}
-          handleTaskMove={handleTaskMove}
-        />
-      )}
+      <InProgressContext.Provider value={[inProgressTasks, handleTaskMove]}>
+        {userSelectedTab === "inProgress" && <InProgressTasks />}
+      </InProgressContext.Provider>
 
-      {userSelectedTab === "done" && (
-        <FinishedTasks finishedTasks={finishedTasks} />
-      )}
+      <DoneContext.Provider value={[finishedTasks]}>
+        {userSelectedTab === "done" && <FinishedTasks />}
+      </DoneContext.Provider>
     </div>
   );
 }

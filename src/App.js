@@ -115,8 +115,13 @@ function App() {
     <div>
       <ul className="flex border-b border-gray-200 text-center">
         <li className="flex-1" onClick={() => setUserSelectedTab("todo")}>
-          <div className="relative block border-t border-l border-r border-gray-200 bg-white p-4 text-sm font-medium">
-            <span className="absolute inset-x-0 -bottom-px h-px w-full bg-white"></span>
+          <div
+            className={`relative block border-t border-l border-r border-gray-200 ${
+              userSelectedTab === "todo"
+                ? "bg-white text-black"
+                : "bg-gray-200 text-gray-500"
+            } p-4 text-sm font-medium`}
+          >
             Todo
           </div>
         </li>
@@ -125,13 +130,25 @@ function App() {
           className="flex-1 pl-px"
           onClick={() => setUserSelectedTab("inProgress")}
         >
-          <div className="block bg-gray-100 p-4 text-sm font-medium text-gray-500 ring-1 ring-inset ring-white">
+          <div
+            className={`block ${
+              userSelectedTab === "inProgress"
+                ? "bg-white text-black"
+                : "bg-gray-200 text-gray-500"
+            } p-4 text-sm font-medium ring-1 ring-inset ring-white`}
+          >
             In Progress
           </div>
         </li>
 
         <li className="flex-1" onClick={() => setUserSelectedTab("done")}>
-          <div className="block bg-gray-100 p-4 text-sm font-medium text-gray-500 ring-1 ring-inset ring-white">
+          <div
+            className={`block ${
+              userSelectedTab === "done"
+                ? "bg-white text-black"
+                : "bg-gray-200 text-gray-500"
+            } p-4 text-sm font-medium text-gray-500 ring-1 ring-inset ring-white`}
+          >
             Done
           </div>
         </li>

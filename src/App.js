@@ -27,34 +27,8 @@ initializeApp(firebaseConfig);
 function App() {
   const [userSelectedTab, setUserSelectedTab] = useState("todo");
   const [todos, setTodos] = useState([]);
-  const [inProgressTasks, setInProgressTasks] = useState([
-    {
-      id: crypto.randomUUID(),
-      title: "firstTask",
-      description: "inProgressFirstTask",
-      state: "inProgress",
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "secondTask",
-      description: "inProgressSecondTask",
-      state: "inProgress",
-    },
-  ]);
-  const [finishedTasks, setFinishedTasks] = useState([
-    {
-      id: crypto.randomUUID(),
-      title: "firstTask",
-      description: "finishedFirstTask",
-      state: "done",
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "secondTask",
-      description: "finishedSecondTask",
-      state: "done",
-    },
-  ]);
+  const [inProgressTasks, setInProgressTasks] = useState([]);
+  const [finishedTasks, setFinishedTasks] = useState([]);
 
   useEffect(() => {
     let ignore = false;

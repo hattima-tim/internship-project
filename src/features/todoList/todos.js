@@ -3,7 +3,8 @@ import { TodosContext } from "../../taskContexts";
 import TaskTable from "../components/taskTable";
 
 export default function Todo() {
-  const [todos, handleTaskMove] = useContext(TodosContext);
+  const [todos, handleTaskMove, removeTaskFromFrontend, removeTaskFromBackend] =
+    useContext(TodosContext);
 
   const returnDropDownOption = (task) => {
     return (
@@ -31,6 +32,8 @@ export default function Todo() {
     <TaskTable
       tasks={todos}
       taskState={"Todo"}
+      removeTaskFromFrontend={removeTaskFromFrontend}
+      removeTaskFromBackend={removeTaskFromBackend}
       returnDropDownOption={returnDropDownOption}
     />
   );

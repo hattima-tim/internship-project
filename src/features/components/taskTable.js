@@ -3,10 +3,19 @@ import { useState } from "react";
 export default function TaskTable({
   tasks,
   taskState,
+  removeTaskFromFrontend,
+  removeTaskFromBackend,
   returnDropDownOption = () => {},
 }) {
   const [dropDownSelectedFor, setDropDownSelectedFor] = useState("");
   const [showStateDropDown, setShowStateDropDown] = useState(false);
+
+  const handleDeleteButtonClick = async (e, task) => {
+    e.preventDefault();
+    const removeResult = await removeTaskFromBackend(task.state, task);
+    if (removeResult === "failure") return;
+    removeTaskFromFrontend(task.state, task.id);
+  };
 
   return (
     <div>
@@ -75,11 +84,14 @@ export default function TaskTable({
                               {returnDropDownOption(task)}
 
                               <div className="p-2">
-                                <form method="POST" action="#">
+                                <form>
                                   <button
                                     type="submit"
                                     className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50 dark:text-red-500 dark:hover:bg-red-600/10"
                                     role="menuitem"
+                                    onClick={(e) =>
+                                      handleDeleteButtonClick(e, task)
+                                    }
                                   >
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"

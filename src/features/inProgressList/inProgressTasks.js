@@ -3,9 +3,14 @@ import { InProgressContext } from "../../taskContexts";
 import TaskTable from "../components/taskTable";
 
 export default function InProgressTasks() {
-  const [inProgressTasks,handleTaskMove] = useContext(InProgressContext);
+  const [
+    inProgressTasks,
+    handleTaskMove,
+    removeTaskFromFrontend,
+    removeTaskFromBackend,
+  ] = useContext(InProgressContext);
 
-  const returnDropDownOption = (task)=>{
+  const returnDropDownOption = (task) => {
     return (
       <>
         <div
@@ -25,11 +30,13 @@ export default function InProgressTasks() {
         </div>
       </>
     );
-  }
+  };
   return (
     <TaskTable
       tasks={inProgressTasks}
       taskState={"In Progress"}
+      removeTaskFromFrontend={removeTaskFromFrontend}
+      removeTaskFromBackend={removeTaskFromBackend}
       returnDropDownOption={returnDropDownOption}
     />
   );

@@ -76,6 +76,8 @@ function App() {
       setInProgressTasks(
         inProgressTasks.filter((inProgress) => inProgress.id !== id)
       );
+    if (from === "done")
+      setFinishedTasks(finishedTasks.filter((finished) => finished.id !== id));
   };
 
   const removeTaskFromBackend = async (from, task) => {
@@ -84,7 +86,7 @@ function App() {
 
     try {
       await updateDoc(refForRemovingData, {
-        [from]: arrayRemove( task ),
+        [from]: arrayRemove(task),
       });
 
       return "success";
@@ -122,9 +124,10 @@ function App() {
     if (removeStatus === "failure") return;
     removeTaskFromFrontend(from, id);
 
-    const addStatus = await addTaskToBackend(to, task);
+    const newTask = { ...task, state: to };
+    const addStatus = await addTaskToBackend(to, newTask);
     if (addStatus === "failure") return;
-    addTaskToFrontend(to, task);
+    addTaskToFrontend(to, newTask);
   };
 
   return (
@@ -170,15 +173,31 @@ function App() {
         </li>
       </ul>
 
-      <TodosContext.Provider value={[todos, handleTaskMove]}>
+      <TodosContext.Provider
+        value={[
+          todos,
+          handleTaskMove,
+          removeTaskFromFrontend,
+          removeTaskFromBackend,
+        ]}
+      >
         {userSelectedTab === "todo" && <Todo />}
       </TodosContext.Provider>
 
-      <InProgressContext.Provider value={[inProgressTasks, handleTaskMove]}>
+      <InProgressContext.Provider
+        value={[
+          inProgressTasks,
+          handleTaskMove,
+          removeTaskFromFrontend,
+          removeTaskFromBackend,
+        ]}
+      >
         {userSelectedTab === "inProgress" && <InProgressTasks />}
       </InProgressContext.Provider>
 
-      <DoneContext.Provider value={[finishedTasks]}>
+      <DoneContext.Provider
+        value={[finishedTasks, removeTaskFromFrontend, removeTaskFromBackend]}
+      >
         {userSelectedTab === "done" && <FinishedTasks />}
       </DoneContext.Provider>
 

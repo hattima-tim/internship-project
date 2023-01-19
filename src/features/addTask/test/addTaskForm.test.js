@@ -55,3 +55,17 @@ test("selecting task state option at 'add task form', works", async () => {
     false
   );
 });
+
+test("typing in description field of 'add task form' works", async () => {
+  const user = userEvent.setup();
+  render(<AddTaskForm />);
+  const addTaskButton = screen.getByRole("button", { name: "Add Task" });
+
+  await user.click(addTaskButton);
+  const descriptionField = screen.getByRole("textbox", {
+    name: /description/i,
+  });
+  await user.type(descriptionField, "hello world");
+
+  expect(descriptionField).toHaveValue("hello world");
+});

@@ -52,12 +52,12 @@ export default function AddTaskForm({
   return (
     <>
       {!showAddTaskForm ? (
-        <div
+        <button
           className="absolute bottom-4 right-4 mr-2 inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
           onClick={() => setShowAddTaskForm(true)}
         >
           Add Task
-        </div>
+        </button>
       ) : (
         <div className="absolute top-[8%] flex w-full items-center justify-center px-2">
           <div className=" max-w-lg bg-white">

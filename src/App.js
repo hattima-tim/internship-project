@@ -4,6 +4,7 @@ import { TodosContext, InProgressContext, DoneContext } from "./taskContexts";
 import Todo from "./features/todoList/todos";
 import InProgressTasks from "./features/inProgressList/inProgressTasks";
 import FinishedTasks from "./features/finishedTaskList/finishedTasks";
+import AddTaskForm from "./features/addTask/addTaskForm";
 import {
   getFirestore,
   doc,
@@ -165,6 +166,12 @@ function App() {
       <DoneContext.Provider value={[finishedTasks]}>
         {userSelectedTab === "done" && <FinishedTasks />}
       </DoneContext.Provider>
+
+      <AddTaskForm
+        setTodos={setTodos}
+        setInProgressTasks={setInProgressTasks}
+        setFinishedTasks={setFinishedTasks}
+      />
     </div>
   );
 }

@@ -70,12 +70,18 @@ function App() {
     return task;
   };
 
-  const updateTaskList = (from, id) => {
+  const removeTask = (from, id) => {
     if (from === "todo") setTodos(todos.filter((todo) => todo.id !== id));
     if (from === "inProgress")
       setInProgressTasks(
         inProgressTasks.filter((inProgress) => inProgress.id !== id)
       );
+  };
+
+  const addTask = (to, task) => {
+    if (to === "todo") setTodos([...todos, task]);
+    if (to === "inProgress") setInProgressTasks([...inProgressTasks, task]);
+    if (to === "done") setFinishedTasks([...finishedTasks, task]);
   };
 
   const updateDataInFirestore = async (from, to, task) => {
@@ -105,11 +111,8 @@ function App() {
     const updateStatus = await updateDataInFirestore(from, to, task);
     if (updateStatus === "failure") return;
 
-    updateTaskList(from, id);
-
-    if (to === "todo") setTodos([...todos, task]);
-    if (to === "inProgress") setInProgressTasks([...inProgressTasks, task]);
-    if (to === "done") setFinishedTasks([...finishedTasks, task]);
+    removeTask(from, id);
+    addTask(to, task);
   };
 
   return (

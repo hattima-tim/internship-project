@@ -45,7 +45,11 @@ export default function TaskTable({
               </td>
               <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                 <div className="inline-flex items-stretch rounded-md border bg-white dark:border-gray-800 dark:bg-gray-900">
-                  <div className="rounded-l-md px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                  <div
+                    className="rounded-l-md px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    role="status"
+                    aria-label={`Task status: ${taskState}`}
+                  >
                     {taskState}
                   </div>
 

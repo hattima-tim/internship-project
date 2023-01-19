@@ -132,46 +132,43 @@ function App() {
 
   return (
     <div>
-      <ul className="flex border-b border-gray-200 text-center">
-        <li className="flex-1" onClick={() => setUserSelectedTab("todo")}>
-          <div
-            className={`relative block border-t border-l border-r border-gray-200 ${
-              userSelectedTab === "todo"
-                ? "bg-white text-black"
-                : "bg-gray-200 text-gray-500"
-            } p-4 text-sm font-medium`}
-          >
-            Todo
-          </div>
-        </li>
+      <div className="flex border-b border-gray-200 text-center" role="tablist">
+        <div
+          role="tab"
+          className={`relative block border-t border-l border-r border-gray-200 ${
+            userSelectedTab === "todo"
+              ? "bg-white text-black"
+              : "bg-gray-200 text-gray-500"
+          } flex-1 p-4 text-sm font-medium`}
+          onClick={() => setUserSelectedTab("todo")}
+        >
+          Todo
+        </div>
 
-        <li
-          className="flex-1 pl-px"
+        <div
+          role="tab"
+          className={`block ${
+            userSelectedTab === "inProgress"
+              ? "bg-white text-black"
+              : "bg-gray-200 text-gray-500"
+          } flex-1 p-4 pl-px text-sm font-medium ring-1 ring-inset ring-white `}
           onClick={() => setUserSelectedTab("inProgress")}
         >
-          <div
-            className={`block ${
-              userSelectedTab === "inProgress"
-                ? "bg-white text-black"
-                : "bg-gray-200 text-gray-500"
-            } p-4 text-sm font-medium ring-1 ring-inset ring-white`}
-          >
-            In Progress
-          </div>
-        </li>
+          In Progress
+        </div>
 
-        <li className="flex-1" onClick={() => setUserSelectedTab("done")}>
-          <div
-            className={`block ${
-              userSelectedTab === "done"
-                ? "bg-white text-black"
-                : "bg-gray-200 text-gray-500"
-            } p-4 text-sm font-medium text-gray-500 ring-1 ring-inset ring-white`}
-          >
-            Done
-          </div>
-        </li>
-      </ul>
+        <div
+          role="tab"
+          className={`block ${
+            userSelectedTab === "done"
+              ? "bg-white text-black"
+              : "bg-gray-200 text-gray-500"
+          } flex-1 p-4 text-sm font-medium text-gray-500 ring-1 ring-inset ring-white`}
+          onClick={() => setUserSelectedTab("done")}
+        >
+          Done
+        </div>
+      </div>
 
       <TodosContext.Provider
         value={[

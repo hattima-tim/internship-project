@@ -35,3 +35,23 @@ test("typing in title field of 'add task form' works", async () => {
 
   expect(titleField).toHaveValue("test task");
 });
+
+test("selecting task state option at 'add task form', works", async () => {
+  const user = userEvent.setup();
+  render(<AddTaskForm />);
+  const addTaskButton = screen.getByRole("button", { name: "Add Task" });
+
+  await user.click(addTaskButton);
+  const selectElement = screen.getByRole("combobox", {
+    name: /Default select example/i,
+  });
+  await user.selectOptions(selectElement, ["inProgress"]);
+
+  expect(screen.getByRole("option", { name: "In Progress" }).selected).toBe(
+    true
+  );
+  expect(screen.getByRole("option", { name: "Todo" }).selected).toBe(false);
+  expect(screen.getByRole("option", { name: "Done" }).selected).toBe(
+    false
+  );
+});

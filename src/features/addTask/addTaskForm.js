@@ -63,13 +63,13 @@ export default function AddTaskForm({
           <div className=" max-w-lg bg-white">
             <form className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl">
               <div>
-                <label htmlFor="text" className="text-sm font-medium">
+                <label htmlFor="title" className="text-sm font-medium">
                   Title
                 </label>
 
                 <input
                   type="text"
-                  id="text"
+                  id="title"
                   className="mt-1 w-full rounded-lg border border-gray-200 p-4 pr-12 text-sm shadow-sm"
                   placeholder="Enter title"
                   value={title}
@@ -78,12 +78,13 @@ export default function AddTaskForm({
               </div>
 
               <div>
-                <label htmlFor="text" className="text-sm font-medium">
+                <label htmlFor="state" className="text-sm font-medium">
                   State
                 </label>
 
                 <select
                   className="mt-1 w-full rounded-lg border border-gray-200 bg-white p-4 pr-12 text-sm shadow-sm"
+                  id="state"
                   aria-label="Default select example"
                   value={state}
                   onChange={(e) => setState(e.target.value)}

@@ -28,13 +28,13 @@ exports[`a form show up on 'add task' button click 1`] = `
 +         <div>
 +           <label
 +             class=\\"text-sm font-medium\\"
-+             for=\\"text\\"
++             for=\\"title\\"
 +           >
 +             Title
 +           </label>
 +           <input
 +             class=\\"mt-1 w-full rounded-lg border border-gray-200 p-4 pr-12 text-sm shadow-sm\\"
-+             id=\\"text\\"
++             id=\\"title\\"
 +             placeholder=\\"Enter title\\"
 +             type=\\"text\\"
 +             value=\\"\\"
@@ -43,13 +43,14 @@ exports[`a form show up on 'add task' button click 1`] = `
 +         <div>
 +           <label
 +             class=\\"text-sm font-medium\\"
-+             for=\\"text\\"
++             for=\\"state\\"
 +           >
 +             State
 +           </label>
 +           <select
 +             aria-label=\\"Default select example\\"
 +             class=\\"mt-1 w-full rounded-lg border border-gray-200 bg-white p-4 pr-12 text-sm shadow-sm\\"
++             id=\\"state\\"
 +           >
 +             <option
 +               value=\\"todo\\"

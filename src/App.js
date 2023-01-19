@@ -70,7 +70,7 @@ function App() {
     return task;
   };
 
-  const removeTask = (from, id) => {
+  const removeTaskFromFrontend = (from, id) => {
     if (from === "todo") setTodos(todos.filter((todo) => todo.id !== id));
     if (from === "inProgress")
       setInProgressTasks(
@@ -78,41 +78,53 @@ function App() {
       );
   };
 
-  const addTask = (to, task) => {
+  const removeTaskFromBackend = async (from, task) => {
+    const db = getFirestore();
+    const refForRemovingData = doc(db, `tasks/${from}`);
+
+    try {
+      await updateDoc(refForRemovingData, {
+        [from]: arrayRemove( task ),
+      });
+
+      return "success";
+    } catch (error) {
+      alert("Something went wrong while removing the task");
+      return "failure";
+    }
+  };
+
+  const addTaskToFrontend = (to, task) => {
     if (to === "todo") setTodos([...todos, task]);
     if (to === "inProgress") setInProgressTasks([...inProgressTasks, task]);
     if (to === "done") setFinishedTasks([...finishedTasks, task]);
   };
 
-  const updateDataInFirestore = async (from, to, task) => {
+  const addTaskToBackend = async (to, task) => {
     const db = getFirestore();
     const refForAddingData = doc(db, `tasks/${to}`);
-    const refForRemovingData = doc(db, `tasks/${from}`);
 
     try {
       await updateDoc(refForAddingData, {
         [to]: arrayUnion(task),
       });
 
-      await updateDoc(refForRemovingData, {
-        [from]: arrayRemove(task),
-      });
-
       return "success";
     } catch (error) {
-      alert("Something went wrong while moving the task");
+      alert("Something went wrong while adding the task");
       return "failure";
     }
   };
 
   const handleTaskMove = async (from, to, id) => {
     let task = getTheTask(from, id);
+    const removeStatus = await removeTaskFromBackend(from, task);
+    if (removeStatus === "failure") return;
+    removeTaskFromFrontend(from, id);
 
-    const updateStatus = await updateDataInFirestore(from, to, task);
-    if (updateStatus === "failure") return;
-
-    removeTask(from, id);
-    addTask(to, task);
+    const addStatus = await addTaskToBackend(to, task);
+    if (addStatus === "failure") return;
+    addTaskToFrontend(to, task);
   };
 
   return (

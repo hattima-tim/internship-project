@@ -22,13 +22,13 @@ export default function TaskTable({
       <table className="min-w-full divide-y-2 divide-gray-200 text-sm">
         <thead>
           <tr>
-            <th className="w-1/2 whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+            <th className="w-1/2  px-4 py-2 text-left font-medium text-gray-900">
               Title
             </th>
-            <th className="w-1/2 whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+            <th className="w-1/2  px-4 py-2 text-left font-medium text-gray-900">
               Description
             </th>
-            <th className="w-1/3 whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+            <th className="w-1/3 text-center px-4 py-2 font-medium text-gray-900">
               State
             </th>
           </tr>
@@ -37,10 +37,10 @@ export default function TaskTable({
         <tbody className="divide-y divide-gray-200">
           {tasks.map((task) => (
             <tr key={task.id}>
-              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              <td className="w-1/3  px-4 py-2 font-medium text-gray-900">
                 {task.title}
               </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+              <td className="w-1/3  px-4 py-2 text-gray-700">
                 {task.description}
               </td>
               <td className="whitespace-nowrap px-4 py-2 text-gray-700">

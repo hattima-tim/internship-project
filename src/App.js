@@ -13,6 +13,7 @@ import {
   arrayUnion,
   arrayRemove,
 } from "firebase/firestore";
+import Rive from "@rive-app/react-canvas";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCMK3rO2M-PTgnBif0jqND1KXxp9dGKgFo",
@@ -26,12 +27,14 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 function App() {
+  const [showLoadingAnimation, setShowLoadingAnimation] = useState(false);
   const [userSelectedTab, setUserSelectedTab] = useState("todo");
   const [todos, setTodos] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [finishedTasks, setFinishedTasks] = useState([]);
 
   useEffect(() => {
+    setShowLoadingAnimation(true);
     let ignore = false;
 
     async function fetchData() {
@@ -52,10 +55,11 @@ function App() {
         }
       } catch (error) {
         alert("Something went wrong while fetching data");
+      } finally {
+        setShowLoadingAnimation(false);
       }
     }
     fetchData();
-
     return () => {
       ignore = true;
     };
@@ -119,6 +123,7 @@ function App() {
   };
 
   const handleTaskMove = async (from, to, id) => {
+    setShowLoadingAnimation(true);
     let task = getTheTask(from, id);
     const removeStatus = await removeTaskFromBackend(from, task);
     if (removeStatus === "failure") return;
@@ -128,6 +133,7 @@ function App() {
     const addStatus = await addTaskToBackend(to, newTask);
     if (addStatus === "failure") return;
     addTaskToFrontend(to, newTask);
+    setShowLoadingAnimation(false);
   };
 
   return (
@@ -135,7 +141,7 @@ function App() {
       <div className="flex border-b border-gray-200 text-center" role="tablist">
         <div
           role="tab"
-          className={`relative cursor-pointer block border-t border-l border-r border-gray-200 ${
+          className={`relative block cursor-pointer border-t border-l border-r border-gray-200 ${
             userSelectedTab === "todo"
               ? "bg-white text-black"
               : "bg-gray-200 text-gray-500"
@@ -202,7 +208,20 @@ function App() {
         setTodos={setTodos}
         setInProgressTasks={setInProgressTasks}
         setFinishedTasks={setFinishedTasks}
+        setShowLoadingAnimation={setShowLoadingAnimation}
       />
+      
+      <div
+        className={`${
+          showLoadingAnimation ? "flex" : "hidden"
+        } fixed z-50 w-full justify-center`}
+      >
+        <Rive
+          src="https://public.rive.app/community/runtime-files/1586-3103-epar-loading-v4.riv"
+          autoPlay={true}
+          style={{ width: "60px", height: "60px" }}
+        />
+      </div>
     </div>
   );
 }

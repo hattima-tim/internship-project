@@ -5,6 +5,7 @@ export default function AddTaskForm({
   setTodos,
   setInProgressTasks,
   setFinishedTasks,
+  setShowLoadingAnimation
 }) {
   const [showAddTaskForm, setShowAddTaskForm] = useState(false);
   const [title, setTitle] = useState("");
@@ -36,6 +37,7 @@ export default function AddTaskForm({
 
   const handleTaskAdd = async (e) => {
     e.preventDefault();
+    setShowLoadingAnimation(true)
     const newTask = {
       id: crypto.randomUUID(),
       title,
@@ -46,6 +48,7 @@ export default function AddTaskForm({
     const updateStatus = await updateBackend(newTask);
     if (updateStatus === "failure") return;
     updateFrontEnd(state, newTask);
+    setShowLoadingAnimation(false);
     setShowAddTaskForm(false);
   };
 

@@ -135,7 +135,7 @@ function App() {
       <div className="flex border-b border-gray-200 text-center" role="tablist">
         <div
           role="tab"
-          className={`relative block border-t border-l border-r border-gray-200 ${
+          className={`relative cursor-pointer block border-t border-l border-r border-gray-200 ${
             userSelectedTab === "todo"
               ? "bg-white text-black"
               : "bg-gray-200 text-gray-500"
@@ -147,7 +147,7 @@ function App() {
 
         <div
           role="tab"
-          className={`block ${
+          className={`block cursor-pointer ${
             userSelectedTab === "inProgress"
               ? "bg-white text-black"
               : "bg-gray-200 text-gray-500"
@@ -159,7 +159,7 @@ function App() {
 
         <div
           role="tab"
-          className={`block ${
+          className={`block cursor-pointer ${
             userSelectedTab === "done"
               ? "bg-white text-black"
               : "bg-gray-200 text-gray-500"

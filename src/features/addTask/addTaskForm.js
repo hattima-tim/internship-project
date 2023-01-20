@@ -5,7 +5,7 @@ export default function AddTaskForm({
   setTodos,
   setInProgressTasks,
   setFinishedTasks,
-  setShowLoadingAnimation
+  setShowLoadingAnimation,
 }) {
   const [showAddTaskForm, setShowAddTaskForm] = useState(false);
   const [title, setTitle] = useState("");
@@ -37,7 +37,7 @@ export default function AddTaskForm({
 
   const handleTaskAdd = async (e) => {
     e.preventDefault();
-    setShowLoadingAnimation(true)
+    setShowLoadingAnimation(true);
     const newTask = {
       id: crypto.randomUUID(),
       title,
@@ -56,7 +56,7 @@ export default function AddTaskForm({
     <>
       {!showAddTaskForm ? (
         <button
-          className="absolute bottom-4 right-4 mr-2 inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
+          className="float-right m-4 rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
           onClick={() => setShowAddTaskForm(true)}
         >
           Add Task

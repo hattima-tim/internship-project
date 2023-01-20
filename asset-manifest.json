@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/%7Binternship-project%7D/static/css/main.4504fbf6.css",
+    "main.js": "/%7Binternship-project%7D/static/js/main.44cacf8a.js",
+    "index.html": "/%7Binternship-project%7D/index.html",
+    "main.4504fbf6.css.map": "/%7Binternship-project%7D/static/css/main.4504fbf6.css.map",
+    "main.44cacf8a.js.map": "/%7Binternship-project%7D/static/js/main.44cacf8a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4504fbf6.css",
+    "static/js/main.44cacf8a.js"
+  ]
+}
